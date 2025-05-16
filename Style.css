@@ -1,0 +1,123 @@
+body {
+    font-family: sans-serif;
+    margin: 20px;
+}
+
+header {
+    background-color: #f0f0f0;
+    padding: 10px;
+    text-align: center;
+}
+
+main > section {
+    margin-bottom: 30px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+button {
+    padding: 8px 15px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+#hoverArea {
+    background-color: lightblue;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+#keypressOutput {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+#imageGallery {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#galleryContainer {
+    display: flex;
+    width: fit-content;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.gallery-image {
+    width: 150px;
+    height: auto;
+    margin: 0 10px;
+    display: none;
+}
+
+.gallery-image.active {
+    display: block;
+}
+
+#accordionContainer {
+    margin-top: 20px;
+}
+
+.accordion-item {
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.accordion-header {
+    background-color: #eee;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    border-radius: 5px 5px 0 0;
+}
+
+.accordion-content {
+    padding: 10px;
+    display: none;
+    border-top: 1px solid #ddd;
+}
+
+.accordion-content.open {
+    display: block;
+}
+
+#userForm label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+#userForm input[type="text"],
+#userForm input[type="email"],
+#userForm input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 2px;
+}
+
+#formMessage {
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+footer {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 0.8em;
+    color: gray;
+}
