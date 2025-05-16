@@ -1,0 +1,161 @@
+document.addEventListener('DOMContentLoaded', () => {
+    // --- Event Handling ---
+    const clickButton = document.getElementById('clickButton');
+    const hoverArea = document.getElementById('hoverArea');
+    const keypressInput = document.getElementById('keypressInput');
+    const keypressOutput = document.getElementById('keypressOutput');
+    const doubleClickButton = document.getElementById('doubleClickButton');
+
+    clickButton.addEventListener('click', () => {
+        alert('Button Clicked!');
+    });
+
+    hoverArea.addEventListener('mouseover', () => {
+        hoverArea.style.backgroundColor = 'lightgreen';
+        hoverArea.textContent = 'You are hovering!';
+    });
+
+    hoverArea.addEventListener('mouseout', () => {
+        hoverArea.style.backgroundColor = 'lightblue';
+        hoverArea.textContent = 'Hover Over Me';
+    });
+
+    keypressInput.addEventListener('keypress', (event) => {
+        keypressOutput.textContent = `You typed: ${event.key}`;
+    });
+
+    doubleClickButton.addEventListener('dblclick', () => {
+        alert('Secret action triggered by double click!');
+    });
+
+    // Bonus: Long press (simulated with mousedown and mouseup)
+    let pressTimer;
+    doubleClickButton.addEventListener('mousedown', () => {
+        pressTimer = setTimeout(() => {
+            alert('Secret action triggered by long press!');
+        }, 1500); // 1.5 seconds
+    });
+
+    doubleClickButton.addEventListener('mouseup', () => {
+        clearTimeout(pressTimer);
+    });
+
+    // --- Interactive Elements ---
+    const changeTextButton = document.getElementById('changeTextButton');
+    const changingText = document.getElementById('changingText');
+    let textChanged = false;
+
+    changeTextButton.addEventListener('click', () => {
+        changingText.textContent = textChanged ? 'Initial Text' : 'Text Changed!';
+        changeTextButton.textContent = textChanged ? 'Change Text' : 'Revert Text';
+        textChanged = !textChanged;
+    });
+
+    // Image Gallery
+    const galleryImages = document.querySelectorAll('#galleryContainer img');
+    const prevButton = document.getElementById('prevButton');
+    const nextButton = document.getElementById('nextButton');
+    let currentIndex = 0;
+
+    function showImage(index) {
+        galleryImages.forEach((img, i) => {
+            img.classList.remove('active');
+            if (i === index) {
+                img.classList.add('active');
+            }
+        });
+    }
+
+    function nextImage() {
+        currentIndex = (currentIndex + 1) % galleryImages.length;
+        showImage(currentIndex);
+    }
+
+    function prevImage() {
+        currentIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
+        showImage(currentIndex);
+    }
+
+    showImage(currentIndex); // Show the first image initially
+    nextButton.addEventListener('click', nextImage);
+    prevButton.addEventListener('click', prevImage);
+
+    // Accordion
+    const accordionHeaders = document.querySelectorAll('.accordion-header');
+
+    accordionHeaders.forEach(header => {
+        header.addEventListener('click', () => {
+            const content = header.nextElementSibling;
+            const isOpen = content.classList.contains('open');
+
+            // Close all other open accordion items
+            document.querySelectorAll('.accordion-content.open').forEach(otherContent => {
+                if (otherContent !== content) {
+                    otherContent.classList.remove('open');
+                }
+            });
+
+            content.classList.toggle('open');
+        });
+    });
+
+    // --- Form Validation ---
+    const userForm = document.getElementById('userForm');
+    const nameInput = document.getElementById('name');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const nameError = document.getElementById('nameError');
+    const emailError = document.getElementById('emailError');
+    const passwordError = document.getElementById('passwordError');
+    const formMessage = document.getElementById('formMessage');
+
+    function validateName() {
+        if (!nameInput.value.trim()) {
+            nameError.textContent = 'Name is required.';
+            return false;
+        }
+        nameError.textContent = '';
+        return true;
+    }
+
+    function validateEmail() {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(emailInput.value)) {
+            emailError.textContent = 'Invalid email format.';
+            return false;
+        }
+        emailError.textContent = '';
+        return true;
+    }
+
+    function validatePassword() {
+        if (passwordInput.value.length < 8) {
+            passwordError.textContent = 'Password must be at least 8 characters long.';
+            return false;
+        }
+        passwordError.textContent = '';
+        return true;
+    }
+
+    userForm.addEventListener('submit', (event) => {
+        event.preventDefault(); // Prevent default form submission
+
+        const isNameValid = validateName();
+        const isEmailValid = validateEmail();
+        const isPasswordValid = validatePassword();
+
+        if (isNameValid && isEmailValid && isPasswordValid) {
+            formMessage.textContent = 'Form submitted successfully!';
+            formMessage.style.color = 'green';
+            userForm.reset(); // Clear the form
+        } else {
+            formMessage.textContent = 'Please correct the errors in the form.';
+            formMessage.style.color = 'red';
+        }
+    });
+
+    // Bonus: Real-time feedback while typing
+    nameInput.addEventListener('input', validateName);
+    emailInput.addEventListener('input', validateEmail);
+    passwordInput.addEventListener('input', validatePassword);
+});
